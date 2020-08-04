@@ -1,0 +1,10 @@
+{
+    "intelephense.files.associations": [
+
+        "*.php",
+        "*.phtml"
+    ],
+    "material-icon-theme.files.associations": {
+    
+    }
+}

@@ -14,9 +14,12 @@ const NavBar = (props) => {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarColor01">
-                    <ul className="navbar-nav mr-auto">
+                    <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <NavLink className="nav-link" exact to="/">Acceuil</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" exact to="/animaux">animaux</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" exact to="/contact">Contact</NavLink>
