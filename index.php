@@ -6,7 +6,10 @@
     "://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]"));
 
     require_once "controllers/front/API.controller.php";
+    require_once "controllers/back/admin.controller.php";
+
     $apiController = new APIController();
+    $adminController = new AdminController();
 
     try {
         if(empty($_GET['page']))
@@ -35,12 +38,19 @@
                         break;
                         case "familles": $apiController->getFamilles();
                         break;
+                        case "sendMessage": $apiController->sendMessage();
+                        break;
                         default: throw new Exception("La page demandée n'existe pas ");
                     }
 
                 break;
                 
-                case "back": echo "page back demandée";
+                case "back":
+                    switch($url[1]){
+                        case "login" :  $adminController->getPageLogin();
+                        break;
+                        default: throw new Exception("La page demandée n'existe pas ");
+                    }
                 break;
                 
                 default: throw new Exception("La page demandée n'existe pas ");

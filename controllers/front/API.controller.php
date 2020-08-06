@@ -67,4 +67,28 @@ class APIController
         $familles = $this->apiManager->getDBFamilles();
         Model::sendJSON($familles);
     }
+
+    public function sendMessage()
+    {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
+        header("Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
+
+
+        $obj = json_decode(file_get_contents('php//inout'));
+
+        // Lorsque le site est en ligne
+        // $to = "hamshakour93@gmail.com";
+        // $subject = "Message de myzoo de : ". $obj->nom;
+        // $message = "$obj->contenu";
+        // $headers = "From : ". $obj->email;
+        // mail($to, $subject, $message, $headers);
+
+        $messageRetour = [
+            'from' => $obj->email,
+            'to' => 'hamshakour93@gmail.com'
+        ];
+
+        echo json_encode($messageRetour);
+    }
 }

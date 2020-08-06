@@ -69,8 +69,13 @@ export default withFormik({
             .max(200, "le message doit faie moins de 200 caractères")
             .required("Le message est obligatoire")
     }),
-    handleSubmit: (values) => {
-        alert("Message envoyé");
+    handleSubmit: (values, {props}) => {
+        const message = {
+            nom: values.nom,
+            email: values.email,
+            contenu: values.contenu
+        }
+        props.sendMail(message);
     }
 
 })(Formulaire);
