@@ -1,5 +1,5 @@
 <?php
-    
+session_start();
     //http:localhost/...
     //https:monsite.com/...
     define("URL", str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" : "http").
@@ -7,9 +7,11 @@
 
     require_once "controllers/front/API.controller.php";
     require_once "controllers/back/admin.controller.php";
+    require_once "controllers/back/familles.controller.php";
 
     $apiController = new APIController();
     $adminController = new AdminController();
+    $famillesContreller = new FamillesController();
 
     try {
         if(empty($_GET['page']))
@@ -49,6 +51,25 @@
                     switch($url[1]){
                         case "login" :  $adminController->getPageLogin();
                         break;
+                        case "connexion" :  $adminController->getConnexion();
+                        break;
+                        case "deconnexion" :  $adminController->getDeconnexion();
+                        break;
+                        case "admin" :  $adminController->getAcceuilAdmin();
+                        break;
+                        case "familles" : 
+                            switch($url[2])
+                            {
+                                case 'visualisation': $famillesContreller->visualisation();
+                                break;
+                                case 'validationSuppression':  $famillesContreller->suppression();
+                                break;
+                                case 'creation':  echo "creation";
+                                break;
+                                
+                                default: throw new Exception("La page demandée n'existe pas ");
+                            }
+                        break;
                         default: throw new Exception("La page demandée n'existe pas ");
                     }
                 break;
@@ -61,4 +82,5 @@
     } catch (Exception $e) {
         $msg = $e->getMessage();
         echo $msg;
+        echo "<a href='".URL."back/login'>login</a>";
     }
