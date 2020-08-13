@@ -50,6 +50,55 @@ class FamillesController{
         }
     }
 
+    public function modification()
+    {
+        if(Security::verifAccessSession())
+        {
+            $idFamille = (int)Security::secureHtml($_POST['famille_id']);
+            $libelle = Security::secureHtml( $_POST['famille_libelle']);
+            $description = Security::secureHtml($_POST['famille_description']);
+
+            $this->famillesManager->updateFamille($idFamille, $libelle, $description);
+
+            $_SESSION['alert'] = [
+                "message" => "La famille a été modifiée",
+                "type" => "alert-success"
+            ];
+
+            header('location: '.URL."back/familles/visualisation");
+        }else{
+            throw new Exception("Vous n'êtes pas connecter !!!!"); 
+        }
+    }
+
+    public function creationTemplate()
+    {
+        if(Security::verifAccessSession())
+        {
+            require_once "views/famillesCreation.view.php";
+        }else{
+            throw new Exception("Vous n'êtes pas connecter !!!!");
+        }
+    }
+
+    public function creationValidation()
+    {
+        if(Security::verifAccessSession())
+        {
+            $libelle = Security::secureHtml( $_POST['famille_libelle']);
+            $description = Security::secureHtml($_POST['famille_description']);
+            $idFamille = $this->famillesManager->createFamille($libelle, $description);
+
+            $_SESSION['alert'] = [
+                "message" => "La famille a été crée avec ". $idFamille,
+                "type" => "alert-success"
+            ];
+            header('location: '.URL."back/familles/visualisation");
+        }else{
+            throw new Exception("Vous n'êtes pas connecter !!!!");  
+        }
+    }
+
 
 
 

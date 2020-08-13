@@ -34,7 +34,31 @@ class FamillesManager extends Model
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
         return $result['nb'];
+    }
 
-    
+    public function updateFamille($idFamille, $libelle, $description)
+    {
+        $req = "Update famille set famille_libelle = :libelle, famille_description = :description
+            WHERE famille_id = :idFamille"
+        ;
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":idFamille",$idFamille,PDO::PARAM_INT);
+        $stmt->bindValue(":libelle",$libelle,PDO::PARAM_STR);
+        $stmt->bindValue(":description",$description,PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+
+    public function createFamille($libelle, $description)
+    {
+        $req = "INSERT INTO famille (famille_libelle, famille_description)
+         values (:libelle,:description)
+        ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(":libelle",$libelle,PDO::PARAM_STR);
+        $stmt->bindValue(":description",$description,PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+        return $this->getBdd()->lastInsertId();
     }
 }

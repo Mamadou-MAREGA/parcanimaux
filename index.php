@@ -8,18 +8,20 @@ session_start();
     require_once "controllers/front/API.controller.php";
     require_once "controllers/back/admin.controller.php";
     require_once "controllers/back/familles.controller.php";
+    require_once "controllers/back/animaux.controller.php";
 
     $apiController = new APIController();
     $adminController = new AdminController();
-    $famillesContreller = new FamillesController();
+    $famillesController = new FamillesController();
+    $animauxController = new AnimauxController();
 
     try {
         if(empty($_GET['page']))
         {
             throw new Exception("La page demandée n'existe pas !!!");
         }else{
-            $url = explode("/", filter_var($_GET['page'], FILTER_SANITIZE_URL));
-
+            // $url = explode("/", filter_var($_GET['page'], FILTER_SANITIZE_URL));
+            $url = explode("/",filter_var($_GET['page'],FILTER_SANITIZE_URL));
             if( empty($url[0]) || empty($url[1])) throw new Exception("La page n'existe pas !!!");
 
             switch ($url[0]) {
@@ -60,13 +62,25 @@ session_start();
                         case "familles" : 
                             switch($url[2])
                             {
-                                case 'visualisation': $famillesContreller->visualisation();
+                                case 'visualisation': $famillesController->visualisation();
                                 break;
-                                case 'validationSuppression':  $famillesContreller->suppression();
+                                case 'validationSuppression':  $famillesController->suppression();
                                 break;
-                                case 'creation':  echo "creation";
+                                case 'validationModification':  $famillesController->modification();
+                                break;
+                                case 'creation':   $famillesController->creationTemplate() ;
+                                break;
+                                case 'creationValidation':   $famillesController->creationValidation() ;
                                 break;
                                 
+                                default: throw new Exception("La page demandée n'existe pas ");
+                            }
+                        break;
+                        case "animaux" : 
+                            switch($url[2])
+                            {
+                                case 'visualisation': $animauxController->visualisation();
+                                break;    
                                 default: throw new Exception("La page demandée n'existe pas ");
                             }
                         break;

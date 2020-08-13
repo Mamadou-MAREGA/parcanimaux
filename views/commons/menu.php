@@ -25,6 +25,15 @@
             <a class="dropdown-item" href="<?php URL ?>familles/creation">Création</a>
           </div>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Animaux
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?php URL ?>animaux/visualisation">Visualisation des animaux</a>
+            <a class="dropdown-item" href="<?php URL ?>animaux/creation">Création d'un animal</a>
+          </div>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="<?= URL ?>back/deconnexion">Déconnexion</a>
         </li>
