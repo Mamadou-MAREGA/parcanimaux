@@ -14,10 +14,11 @@ class APIManager extends Model
             select animal_id from animal_continent where continent_id = :idContinent
         )";
 
-        $req = " SELECT * 
+        $req = " SELECT a.animal_id, animal_nom, animal_description, animal_image, f.famille_id, famille_libelle, famille_description,
+            c.continent_id, continent_libelle
             FROM animal a INNER JOIN famille f ON f.famille_id = a.famille_id
-            INNER JOIN animal_continent ac ON ac.animal_id = a.animal_id
-            INNER JOIN continent c ON c.continent_id = ac.continent_id ".$whereClause
+            left JOIN animal_continent ac ON ac.animal_id = a.animal_id
+            left JOIN continent c ON c.continent_id = ac.continent_id ".$whereClause
         ;
         $stmt = $this->getBdd()->prepare($req);
         if($idFamille !== -1) $stmt->bindValue(":idFamille",$idFamille, PDO::PARAM_INT);

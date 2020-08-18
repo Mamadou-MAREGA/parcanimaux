@@ -36,7 +36,7 @@
         <form method="POST" action="<?= URL ?>back/familles/validationModification">
             <tr>
               <td scope="row"><?= $famille['famille_id'] ?></td>
-              <td><input type="text" name="famille_libelle" class="form-control" value="<?=$famille['famille_libelle'] ?>" /></td>
+              <td><input type="text" name="famille_libelle" class="form-control text-justify" value="<?=$famille['famille_libelle'] ?>" /></td>
               <td>
                 <textarea name="famille_description" rows="3" class="form-control"> <?= $famille['famille_description']?> </textarea>
               </td>

@@ -81,6 +81,16 @@ session_start();
                             {
                                 case 'visualisation': $animauxController->visualisation();
                                 break;    
+                                case 'validationSuppression': $animauxController->suppression();
+                                break;    
+                                case 'creation': $animauxController->creation();
+                                break;    
+                                case 'creationValidation': $animauxController->creationValidation();
+                                break;    
+                                case 'modification': $animauxController->modification($url[3]);
+                                break;    
+                                case 'modificationValidation': $animauxController->modificationValidation();
+                                break;    
                                 default: throw new Exception("La page demandée n'existe pas ");
                             }
                         break;
